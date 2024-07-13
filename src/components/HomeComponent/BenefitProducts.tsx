@@ -35,11 +35,11 @@ const BenefitProducts = () => {
           align: "start",
         }}
         orientation="horizontal"
-        className="w-full max-w-5xl mx-auto"
+        className="mx-5 w-2/3 md:w-full md:max-w-5xl md:mx-auto"
       >
         <CarouselContent className="flex">
           {benefitData?.map((item: TBenefit, index: number) => (
-            <CarouselItem key={index} className=" w-full">
+            <CarouselItem key={index} className="w-full">
               <BenefitCard benefitData={item} />
             </CarouselItem>
           ))}

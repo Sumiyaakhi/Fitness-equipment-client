@@ -21,8 +21,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   console.log(product);
   return (
     <div className="">
-      <div className=" "></div>
-      <Card className="h-full w-full">
+      <Card className="h-full w-full hover:border-2">
         <CardHeader>
           <img src={image} alt="" />
           <CardTitle>{productName}</CardTitle>

@@ -3,6 +3,7 @@ import Banner from "../../components/HomeComponent/Banner";
 import Cataegory from "@/components/HomeComponent/Cataegory";
 import FeaturedProduct from "@/components/HomeComponent/FeaturedProduct";
 import BenefitProducts from "@/components/HomeComponent/BenefitProducts";
+import MosaikImage from "@/components/HomeComponent/MosaikImage";
 
 const HomePage = () => {
   return (
@@ -12,6 +13,7 @@ const HomePage = () => {
       <Cataegory />
       <FeaturedProduct />
       <BenefitProducts />
+      <MosaikImage />
     </div>
   );
 };
