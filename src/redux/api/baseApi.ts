@@ -12,9 +12,15 @@ export const baseApi = createApi({
         url: "/products",
       }),
     }),
+    getBenefits: builder.query({
+      query: () => ({
+        method: "GET",
+        url: "/benefits",
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetProductsQuery } = baseApi;
+export const { useGetProductsQuery, useGetBenefitsQuery } = baseApi;

@@ -20,7 +20,7 @@ const ProductManagement = () => {
   return (
     <div className="max-w-7xl mx-auto lg:pt-32">
       <div className="md:my-5">
-        <button className="px-5 py-3 rounded-md bg-primary text-white  me-5 hover:text-primary hover:bg-white border-primary border-2  font-bold">
+        <button className="px-5 py-3 rounded-full bg-primary text-white  me-5 hover:text-primary hover:bg-white border-primary border-2  font-bold">
           Add Product
         </button>
       </div>
