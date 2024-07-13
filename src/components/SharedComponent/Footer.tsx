@@ -1,10 +1,8 @@
-import { useState } from "react";
 import logo from "../../assets/logo.png";
 import { FaFacebookF, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const [isHovered, setIsHovered] = useState(false);
   return (
     <div className="bg-[#F0F0F0] text-black px-5  md:px-20 mt-36 relative">
       <footer className=" pt-36 md:flex">
@@ -69,10 +67,10 @@ const Footer = () => {
               <Link to="/about">About</Link>
             </p>
             <p className="footer-p text-gray-500">
-              <Link>Features</Link>
+              <Link to="">Features</Link>
             </p>
             <p className="footer-p text-gray-500">
-              <Link>Works</Link>
+              <Link to="">Works</Link>
             </p>
             <p className="footer-p text-gray-500">
               <Link to="/career">Career</Link>
@@ -81,10 +79,10 @@ const Footer = () => {
           <div className="gap-5 md:ms-20 md:mt-6">
             <h6 className="nav-route ">Help</h6>
             <p className="footer-p text-gray-500">
-              <Link>Customer Support</Link>
+              <Link to="">Customer Support</Link>
             </p>
             <p className="footer-p text-gray-500">
-              <Link>Delivery Details</Link>
+              <Link to="">Delivery Details</Link>
             </p>
             <p className="footer-p text-gray-500">
               <Link to="/terms-condition">Terms & Conditions</Link>
@@ -96,36 +94,36 @@ const Footer = () => {
           <div className="gap-5 md:ms-20 md:mt-6">
             <h6 className="nav-route ">FAQ</h6>
             <p className="footer-p text-gray-500">
-              <Link>Account</Link>
+              <Link to="">Account</Link>
             </p>
             <p className="footer-p text-gray-500">
-              <Link>Manage Deliveries</Link>
+              <Link to="">Manage Deliveries</Link>
             </p>
             <p className="footer-p text-gray-500">
-              <Link>Orders</Link>
+              <Link to="">Orders</Link>
             </p>
             <p className="footer-p text-gray-500">
-              <Link>Payments</Link>
+              <Link to="">Payments</Link>
             </p>
           </div>
           <div className="gap-5 md:ms-20 md:mt-6">
             <h6 className="nav-route ">Resources</h6>
             <p className="footer-p text-gray-500">
-              <Link>Free eBooks</Link>
+              <Link to="">Free eBooks</Link>
             </p>
             <p className="footer-p text-gray-500">
-              <Link>Development Tutorial</Link>
+              <Link to="">Development Tutorial</Link>
             </p>
             <p className="footer-p text-gray-500">
-              <Link>How to -Blog</Link>
+              <Link to="">How to -Blog</Link>
             </p>
             <p className="footer-p text-gray-500">
-              <Link>Youtube Playlist</Link>
+              <Link to="">Youtube Playlist</Link>
             </p>
           </div>
         </div>
       </footer>
-      <section className="md:flex justify-between bg-black text-white md:mx-24 rounded-3xl md:pt-12 md:px-20 absolute -top-28  left-0 right-0  text-center md:text-left py-3 mx-6">
+      <section className="md:flex justify-between bg-primary text-white md:mx-24 rounded-3xl md:pt-12 md:px-20 absolute -top-28  left-0 right-0  text-center md:text-left py-3 mx-6">
         <div>
           <h1 className="font-primary text-2xl md:3xl lg:4xl xl:text-5xl">
             STAY UPTO DATE ABOUT <br />{" "}

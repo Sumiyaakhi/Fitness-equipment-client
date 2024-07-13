@@ -33,10 +33,10 @@ const ProductCard = ({ product }: { product: TProduct }) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
-            <button className="font-bold my-auto bg-white text-primary border-2 w-full rounded-full hover:bg-primary hover:text-white py-3">
+            <button className="font-bold my-auto bg-white text-primary border-2 w-full rounded-lg hover:bg-primary hover:text-white py-3">
               Add to Cart
             </button>
-            <button className="font-bold my-auto bg-white text-primary border-2 w-full rounded-full hover:bg-primary hover:text-white py-3">
+            <button className="font-bold my-auto bg-white text-primary border-2 w-full rounded-lg hover:bg-primary hover:text-white py-3">
               Details
             </button>
           </div>
