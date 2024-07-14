@@ -3,6 +3,7 @@ import { baseApi } from "./api/baseApi";
 
 export const store = configureStore({
   reducer: {
+    // cart: cartReducer,
     [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

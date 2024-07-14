@@ -8,6 +8,9 @@ const Products = () => {
   const { data, isLoading } = useGetProductsQuery({});
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState(""); // '' for no sorting, 'asc' for ascending, 'desc' for descending
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]); // Adjust the price range as per your requirement
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
 
   if (isLoading) {
     return (
@@ -22,9 +25,27 @@ const Products = () => {
 
   const { data: products } = data;
 
-  const filteredProducts = products?.filter((product: TProduct) =>
-    product.productName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((cat) => cat !== category)
+        : [...prev, category]
+    );
+  };
+
+  const filteredProducts = products
+    ?.filter((product: TProduct) =>
+      product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    ?.filter((product: TProduct) =>
+      selectedCategories.length
+        ? selectedCategories.includes(product.category)
+        : true
+    )
+    ?.filter(
+      (product: TProduct) =>
+        product.price >= priceRange[0] && product.price <= priceRange[1]
+    );
 
   const sortedProducts = filteredProducts
     ?.slice()
@@ -41,6 +62,8 @@ const Products = () => {
   const clearFilters = () => {
     setSearchQuery("");
     setSortOrder("");
+    setSelectedCategories([]);
+    setPriceRange([0, 1000]); // Reset to default price range
   };
 
   return (
@@ -56,7 +79,7 @@ const Products = () => {
               placeholder="Search by product name"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="border py-2 rounded pl-10 w-auto pr-20"
+              className="border p-2 rounded pl-10 pr-20"
             />
             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
@@ -66,15 +89,65 @@ const Products = () => {
             className="border p-2 rounded"
           >
             <option value="">Sort by price</option>
-            <option value="asc">Price: Low to High</option>
-            <option value="desc">Price: High to Low</option>
+            <option value="asc"> Low to High</option>
+            <option value="desc"> High to Low</option>
           </select>
           <button
             onClick={clearFilters}
-            className="border p-2 rounded bg-gray-200 hover:border-primary hover:bg-white font-semibold"
+            className="border p-2 rounded bg-gray-200"
           >
             Clear Filters
           </button>
+        </div>
+      </div>
+      <div className="my-4">
+        <h2 className="text-xl font-semibold mb-2">Category Filters</h2>
+        <div className="relative inline-block">
+          <button
+            onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
+            className="border p-2 rounded bg-gray-200"
+          >
+            Select Categories
+          </button>
+          {isCategoryDropdownOpen && (
+            <div className="absolute left-0 mt-2 w-48 bg-white border rounded shadow-lg z-10">
+              {products?.map((product: TProduct) => (
+                <label
+                  key={product.category}
+                  className="flex items-center px-4 py-2"
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(product.category)}
+                    onChange={() => handleCategoryChange(product.category)}
+                  />
+                  <span className="ml-2">{product.category}</span>
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="my-4">
+        <h2 className="text-xl font-semibold mb-2">Price Range</h2>
+        <div className="flex space-x-4 items-center">
+          <input
+            type="number"
+            value={priceRange[0]}
+            onChange={(e) =>
+              setPriceRange([Number(e.target.value), priceRange[1]])
+            }
+            className="border p-2 rounded w-24"
+          />
+          <span>to</span>
+          <input
+            type="number"
+            value={priceRange[1]}
+            onChange={(e) =>
+              setPriceRange([priceRange[0], Number(e.target.value)])
+            }
+            className="border p-2 rounded w-24"
+          />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
