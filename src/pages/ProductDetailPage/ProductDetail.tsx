@@ -1,10 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "@/redux/api/baseApi";
+import { useEffect } from "react";
 
 const ProductDetails = () => {
   const { id } = useParams();
   console.log(id);
   const { data, isLoading } = useGetProductByIdQuery(id as string);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (isLoading) {
     return <p>Loading...</p>;

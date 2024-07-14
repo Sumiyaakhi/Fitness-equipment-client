@@ -63,7 +63,7 @@ const Products = () => {
     setSearchQuery("");
     setSortOrder("");
     setSelectedCategories([]);
-    setPriceRange([0, 1000]); // Reset to default price range
+    setPriceRange([0, 1000]);
   };
 
   return (
