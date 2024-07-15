@@ -94,9 +94,11 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end gap-5">
-          <button className="">
-            <HiOutlineShoppingCart className="w-7 h-7 " />
-          </button>
+          <Link to="/cart">
+            <button className="">
+              <HiOutlineShoppingCart className="w-7 h-7 " />
+            </button>
+          </Link>
           <button className="">
             <FaRegUser className="w-6 h-6 " />
           </button>

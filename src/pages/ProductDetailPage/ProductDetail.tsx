@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const { data, isLoading } = useGetProductByIdQuery(id as string);
 
   useEffect(() => {

@@ -9,6 +9,7 @@ import {
 import { useForm } from "react-hook-form";
 import { TProduct } from "@/types/ProductTypes";
 import { Input } from "../ui/input";
+import { toast } from "sonner";
 
 const UpdateProduct = ({ product }: { product: TProduct }) => {
   const {
@@ -39,17 +40,23 @@ const UpdateProduct = ({ product }: { product: TProduct }) => {
   const [updateProduct, { isLoading }] = useUpdateProductMutation({});
   if (isLoading) {
     return (
-      <>
+      <div className=" flex justify-center items-center">
         <span className="loading loading-ring loading-xs"></span>
         <span className="loading loading-ring loading-sm"></span>
         <span className="loading loading-ring loading-md"></span>
         <span className="loading loading-ring loading-lg"></span>
-      </>
+      </div>
     );
   }
   const onSubmit = async (data: TProduct) => {
     try {
-      await updateProduct({ id: product._id, updateProduct: data }).unwrap(); // Ensure to include id in updateProduct call
+      const res = await updateProduct({
+        id: product._id,
+        updateProduct: data,
+      }).unwrap();
+      if (res?.success) {
+        toast.success(res?.message);
+      }
       console.log("Product updated successfully:", data);
     } catch (error) {
       console.error("Failed to update product: ", error);

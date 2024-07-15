@@ -31,9 +31,8 @@ const ProductManagement = () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         await deleteProduct(id);
-        // handle success (e.g., show notification)
       } catch (error) {
-        // handle error
+        console.log(error);
       }
     }
   };
