@@ -1,8 +1,17 @@
-import { useGetProductsQuery } from "@/redux/api/baseApi";
+import Addproduct from "@/components/productManagementComponent/Addproduct";
+import UpdateProduct from "@/components/productManagementComponent/UpdateProduct";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import {
+  useDeleteProductMutation,
+  useGetProductsQuery,
+} from "@/redux/api/baseApi";
 import { TProduct } from "@/types/ProductTypes";
 
 const ProductManagement = () => {
-  const { data, isLoading } = useGetProductsQuery({});
+  const { data, isLoading } = useGetProductsQuery({
+    pollingInterval: 2000,
+  });
+  const [deleteProduct] = useDeleteProductMutation();
 
   if (isLoading) {
     return (
@@ -16,14 +25,31 @@ const ProductManagement = () => {
   }
 
   const { data: products } = data;
-  console.log(products);
+  // console.log(products);
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await deleteProduct(id);
+        // handle success (e.g., show notification)
+      } catch (error) {
+        // handle error
+      }
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto lg:pt-32">
-      <div className="md:my-5">
-        <button className="px-5 py-3 rounded-full bg-primary text-white  me-5 hover:text-primary hover:bg-white border-primary border-2  font-bold">
-          Add Product
-        </button>
-      </div>
+    <div className="max-w-7xl mx-auto lg:pt-32 font-primary">
+      <Dialog>
+        <DialogTrigger asChild>
+          <button className="px-5 py-3 rounded-md font-bold my-5  bg-primary text-white  me-5 hover:text-primary hover:bg-white border-primary border-2">
+            Add Product
+          </button>
+        </DialogTrigger>
+        <DialogContent className="w-full">
+          <Addproduct />
+        </DialogContent>
+      </Dialog>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -57,10 +83,20 @@ const ProductManagement = () => {
                 <td className="font-semibold">{product.price}</td>
                 <td className="font-semibold">{product.category}</td>
                 <th className="">
-                  <button className="px-5 py-3 rounded-md bg-primary text-white  me-5 hover:text-primary hover:bg-white border-primary border-2">
-                    UPDATE
-                  </button>
-                  <button className="px-5 py-3 rounded-md bg-primary text-white  me-5 hover:text-primary hover:bg-white border-primary border-2">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="px-5 py-3 rounded-md bg-primary text-white  me-5 hover:text-primary hover:bg-white border-primary border-2">
+                        UPDATE
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="w-full">
+                      <UpdateProduct product={product} />
+                    </DialogContent>
+                  </Dialog>
+                  <button
+                    onClick={() => handleDelete(product._id)}
+                    className="px-5 py-3 rounded-md bg-primary text-white  me-5 hover:text-primary hover:bg-white border-primary border-2"
+                  >
                     DELETE
                   </button>
                 </th>

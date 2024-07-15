@@ -4,20 +4,44 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
-  tagTypes: ["products"],
+  tagTypes: ["product"],
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => ({
         method: "GET",
         url: "/products",
       }),
+      providesTags: ["product"],
     }),
     getProductById: builder.query({
       query: (id: string) => ({
         method: "GET",
         url: `/product/${id}`,
       }),
-      providesTags: ["products"],
+      providesTags: ["product"],
+    }),
+    addAProduct: builder.mutation({
+      query: (newProduct) => ({
+        method: "POST",
+        url: `/product`,
+        body: newProduct,
+      }),
+      invalidatesTags: ["product"],
+    }),
+    updateProduct: builder.mutation({
+      query: ({ id, updateProduct }) => ({
+        method: "PUT",
+        url: `/product/${id}`,
+        body: updateProduct,
+      }),
+      invalidatesTags: ["product"],
+    }),
+    deleteProduct: builder.mutation({
+      query: (id: string) => ({
+        method: "DELETE",
+        url: `/product/${id}`,
+      }),
+      invalidatesTags: ["product"],
     }),
     getBenefits: builder.query({
       query: () => ({
@@ -41,4 +65,7 @@ export const {
   useGetProductByIdQuery,
   useGetBenefitsQuery,
   useGetImagesQuery,
+  useAddAProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
 } = baseApi;

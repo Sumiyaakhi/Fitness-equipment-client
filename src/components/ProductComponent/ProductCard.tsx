@@ -13,7 +13,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   // console.log(_id);
   return (
     <div className="">
-      <Card className="h-full w-full hover:border-2">
+      <Card className="h-full w-full hover:border-2 font-primary">
         <CardHeader>
           <img src={image} alt="" />
           <CardTitle>{productName}</CardTitle>
@@ -28,8 +28,8 @@ const ProductCard = ({ product }: { product: TProduct }) => {
             <span className="font-bold text-noraml">Price: </span>${price}
           </p>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-4">
+        <CardContent className=" ">
+          <div className="grid grid-cols-2 gap-4 ">
             <button className="font-bold my-auto bg-white text-primary border-2 w-full rounded-lg hover:bg-primary hover:text-white py-3">
               Add to Cart
             </button>

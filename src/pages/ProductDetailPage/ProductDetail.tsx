@@ -18,7 +18,7 @@ const ProductDetails = () => {
   const product = data?.data;
   const { productName, category, image, stockQuantity, price, description } =
     product;
-  console.log(product);
+  // console.log(product);
 
   return (
     <div className="max-w-7xl mx-auto md:pt-20 p-4">
@@ -31,7 +31,7 @@ const ProductDetails = () => {
             <h1 className="text-3xl font-bold font-primary ">{productName}</h1>
 
             <p className="font-primary py-3">{description}</p>
-            <p className="border-red-500 border-2 w-1/2 font-primary font-bold text-red-600 text-center">
+            <p className="border-red-500 border-2 w-2/3 font-primary font-bold text-red-600 text-center">
               Upto 10% discount is on over this price
             </p>
             <p className="text-xl font-bold font-primary pt-4">
