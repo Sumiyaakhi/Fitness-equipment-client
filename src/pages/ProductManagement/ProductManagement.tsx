@@ -6,6 +6,7 @@ import {
   useGetProductsQuery,
 } from "@/redux/api/baseApi";
 import { TProduct } from "@/types/ProductTypes";
+import { Link } from "react-router-dom";
 
 const ProductManagement = () => {
   const { data, isLoading } = useGetProductsQuery({
@@ -39,6 +40,16 @@ const ProductManagement = () => {
 
   return (
     <div className="max-w-7xl mx-auto lg:pt-32 font-primary">
+      <div className="breadcrumbs text-sm">
+        <ul className=" font-primary ">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/Product-management">Product Management</Link>
+          </li>
+        </ul>
+      </div>
       <Dialog>
         <DialogTrigger asChild>
           <button className="px-5 py-3 rounded-md font-bold my-5  bg-primary text-white  me-5 hover:text-primary hover:bg-white border-primary border-2">

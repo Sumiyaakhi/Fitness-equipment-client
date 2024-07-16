@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
 import { removeFromCart, updateQuantity } from "@/redux/features/cartSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
 const Cart = () => {
@@ -40,25 +40,36 @@ const Cart = () => {
 
   return (
     <div className="pt-32 max-w-7xl mx-auto font-primary">
+      <div className="breadcrumbs text-sm py-5">
+        <ul className=" font-primary ">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/cart">Cart</Link>
+          </li>
+        </ul>
+      </div>
       <h2 className="text-3xl font-primary font-bold mb-4 ">Shopping Cart</h2>
-
-      <div className="overflow-x-auto">
-        <table className="table table-zebra">
-          <thead>
-            <tr className="text-xl">
-              <th>No</th>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cartItems.length === 0 ? (
-              <p>Your cart is empty.</p>
-            ) : (
-              <>
+      {cartItems.length === 0 ? (
+        <p className="text-xl md:text-3xl font-bold text-center py-4 md:py-8">
+          Your cart is empty.
+        </p>
+      ) : (
+        <>
+          <div className="overflow-x-auto">
+            <table className="table table-zebra">
+              <thead>
+                <tr className="text-xl">
+                  <th>No</th>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
                 {cartItems.map((item, index) => (
                   <tr key={item._id}>
                     <th>{index + 1}</th>
@@ -109,48 +120,50 @@ const Cart = () => {
                     </td>
                   </tr>
                 ))}
-              </>
-            )}
-
-            {/* row 1 */}
-          </tbody>
-        </table>
-      </div>
-      <div className="divider"></div>
-      <div>
-        <div className="bg-white p-6 rounded-lg shadow-md max-w-xl ms-auto ">
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-4 text-center hover:underline">
-            Pricing Details
-          </h3>
-          <div className=" mx-auto">
-            {cartItems.length > 0 && (
-              <div>
-                <p className="md:text-xl lg:text-2xl">
-                  Total Items :{" "}
-                  {cartItems.reduce((acc, item) => acc + item.quantity, 0)}
-                </p>
-                <p className="md:text-xl lg:text-2xl">
-                  Total Price: $
-                  {cartItems
-                    .reduce((acc, item) => acc + item.quantity * item.price, 0)
-                    .toFixed(2)}
-                </p>
-                <div className="flex justify-end">
-                  <button
-                    className="bg-primary btn text-white hover:text-primary hover:bg-white font-bold hover:border-primary rounded-lg"
-                    onClick={handleCheckout}
-                    disabled={cartItems.some(
-                      (item) => item.quantity > item.stockQuantity
-                    )}
-                  >
-                    Checkout
-                  </button>
-                </div>
-              </div>
-            )}
+              </tbody>
+            </table>
           </div>
-        </div>
-      </div>
+          <div className="divider"></div>
+
+          <div>
+            <div className="bg-white p-6 rounded-lg shadow-md max-w-xl ms-auto ">
+              <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-4 text-center hover:underline">
+                Pricing Details
+              </h3>
+              <div className=" mx-auto">
+                {cartItems.length > 0 && (
+                  <div>
+                    <p className="md:text-xl lg:text-2xl">
+                      Total Items :{" "}
+                      {cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+                    </p>
+                    <p className="md:text-xl lg:text-2xl">
+                      Total Price: $
+                      {cartItems
+                        .reduce(
+                          (acc, item) => acc + item.quantity * item.price,
+                          0
+                        )
+                        .toFixed(2)}
+                    </p>
+                    <div className="flex justify-end">
+                      <button
+                        className="bg-primary btn text-white hover:text-primary hover:bg-white font-bold hover:border-primary rounded-lg"
+                        onClick={handleCheckout}
+                        disabled={cartItems.some(
+                          (item) => item.quantity > item.stockQuantity
+                        )}
+                      >
+                        Checkout
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

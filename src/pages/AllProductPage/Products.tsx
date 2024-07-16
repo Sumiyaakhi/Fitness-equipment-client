@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import ProductCard from "@/components/ProductComponent/ProductCard";
 import { useGetProductsQuery } from "@/redux/api/baseApi";
 import { TProduct } from "@/types/ProductTypes";
+import { Link, useLocation } from "react-router-dom";
+import { debounce } from "lodash";
 
 const Products = () => {
   const { data, isLoading } = useGetProductsQuery({});
@@ -11,6 +13,26 @@ const Products = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]); // Adjust the price range as per your requirement
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const category = queryParams.get("category");
+    if (category) {
+      setSelectedCategories([category]);
+    }
+  }, [location.search]);
+
+  const handleSearchChange = debounce((value: string) => {
+    setSearchQuery(value);
+  }, 300);
+
+  useEffect(() => {
+    return () => {
+      handleSearchChange.cancel();
+    };
+  }, [handleSearchChange]);
 
   if (isLoading) {
     return (
@@ -67,7 +89,17 @@ const Products = () => {
   };
 
   return (
-    <div className="md:pt-24 max-w-7xl mx-auto">
+    <div className="md:pt-32 max-w-7xl mx-auto font-primary">
+      <div className="breadcrumbs text-sm ">
+        <ul className=" font-primary ">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/products">All Products</Link>
+          </li>
+        </ul>
+      </div>
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-primary py-4 md:py-10 hover:underline">
           Enhance our all products
@@ -78,7 +110,7 @@ const Products = () => {
               type="search"
               placeholder="Search by product name"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)} // Use debounced function here
               className="border p-2 rounded pl-10 pr-20"
             />
             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -156,7 +188,9 @@ const Products = () => {
             <ProductCard key={index} product={product} />
           ))
         ) : (
-          <p>No products found</p>
+          <p className="text-xl md:text-2xl lg:text-3xl text-center py-4 ">
+            No products found by this category
+          </p>
         )}
       </div>
     </div>

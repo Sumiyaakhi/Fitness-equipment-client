@@ -2,8 +2,12 @@ import { Link, NavLink } from "react-router-dom";
 import img from "../../assets/logo.png";
 import { FaRegUser } from "react-icons/fa";
 import { HiOutlineShoppingCart } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const Navbar = () => {
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  console.log(cartItems.length);
   const navItem = (
     <>
       <li>
@@ -95,15 +99,21 @@ const Navbar = () => {
         </div>
         <div className="navbar-end gap-5">
           <Link to="/cart">
-            <button className="">
-              <HiOutlineShoppingCart className="w-7 h-7 " />
-            </button>
+            <div className="indicator">
+              <span className="indicator-item badge border-primary ">
+                {cartItems.length}
+              </span>
+              <button className="">
+                <HiOutlineShoppingCart className="w-7 h-7 " />
+              </button>
+            </div>
           </Link>
           <button className="">
             <FaRegUser className="w-6 h-6 " />
           </button>
         </div>
       </div>
+      <hr />
     </div>
   );
 };

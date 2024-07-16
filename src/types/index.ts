@@ -9,3 +9,14 @@ export type TTestimonial = {
   quote: string;
   imageUrl: string;
 };
+export type TUser = {
+  name: string;
+  email: string;
+  phoneNumber: number;
+  address: string;
+};
+
+export type TImage = {
+  _id: number;
+  img: string;
+};

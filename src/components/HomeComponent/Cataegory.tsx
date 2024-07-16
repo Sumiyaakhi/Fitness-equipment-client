@@ -1,4 +1,6 @@
-const Cataegory = () => {
+import { Link } from "react-router-dom";
+
+const Category = () => {
   const categories = [
     {
       id: 2,
@@ -12,14 +14,12 @@ const Cataegory = () => {
       image:
         "https://i.ibb.co/dg68Wg8/Squat-Power-Rack-Image1-96983d53-6891-4996-9bde-962ba7af7bdc.jpg",
     },
-
     {
       id: 5,
       name: "Barbells",
       image:
         "https://i.ibb.co/wNcMctT/OLY-1500-LBS-COLLARS-7ft-Olympic-Bar-1500-lbs-w-Needle-Bearings-Collars-5.jpg",
     },
-
     {
       id: 7,
       name: "Lower body & Legs",
@@ -35,7 +35,7 @@ const Cataegory = () => {
 
   return (
     <div className="max-w-7xl mx-auto mt-20">
-      <div className=" ">
+      <div>
         <h1 className="text-xl text-center font-bebas">
           "Holding the most reputed brands like Reebok, Adidas, <br /> Sole,
           Spirit, Freemotion etc, the owner is very experienced and
@@ -51,12 +51,14 @@ const Cataegory = () => {
         </h1>
         <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-6 ">
           {categories.map((category, index) => (
-            <div className="border-[1px] rounded-b-md" key={index}>
-              <img src={category.image} alt="" />
-              <p className="text-xl font-primary p-3 hover:underline ">
-                {category.name}
-              </p>
-            </div>
+            <Link to={`/products?category=${category.name}`} key={index}>
+              <div className="border-[1px] rounded-b-md">
+                <img src={category.image} alt="" />
+                <p className="text-xl font-primary p-3 hover:underline">
+                  {category.name}
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -64,4 +66,4 @@ const Cataegory = () => {
   );
 };
 
-export default Cataegory;
+export default Category;
