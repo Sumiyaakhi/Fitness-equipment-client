@@ -18,19 +18,21 @@ const MosaikImage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto my-10 p-4 border-2 rounded-xl">
+    <div>
       <h1 className="text-3xl font-primary py-4 md:py-8 text-center hover:underline">
         Image Gallery
       </h1>
-      <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
-        <Masonry>
-          {data?.data?.map((item: TImage, index: number) => (
-            <div key={index} className="m-2 rounded-lg">
-              <img src={item.img} alt="" className="w-full rounded-lg" />
-            </div>
-          ))}
-        </Masonry>
-      </ResponsiveMasonry>
+      <div className="max-w-4xl mx-auto my-10 p-4 border-2 rounded-xl">
+        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
+          <Masonry>
+            {data?.data?.map((item: TImage, index: number) => (
+              <div key={index} className="m-2 rounded-lg">
+                <img src={item.img} alt="" className="w-full rounded-lg" />
+              </div>
+            ))}
+          </Masonry>
+        </ResponsiveMasonry>
+      </div>
     </div>
   );
 };

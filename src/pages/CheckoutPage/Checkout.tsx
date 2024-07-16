@@ -14,7 +14,6 @@ const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
-
   const [updateProduct] = useUpdateProductMutation();
   const [paymentMethod, setPaymentMethod] = useState("cod");
 
@@ -32,6 +31,7 @@ const Checkout = () => {
 
   const handlePlaceOrder = async () => {
     try {
+      // Update product stock for each item in the cart
       for (const item of cartItems) {
         await updateProduct({
           id: item._id,
@@ -79,7 +79,6 @@ const Checkout = () => {
               >
                 Your Email
               </label>
-
               <input
                 {...register("email", { required: true })}
                 type="email"
@@ -89,7 +88,7 @@ const Checkout = () => {
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
               {errors.email && (
-                <p className="text-red-500">email is required</p>
+                <p className="text-red-500">Email is required</p>
               )}
             </div>
             <div className="mb-4">
@@ -99,12 +98,11 @@ const Checkout = () => {
               >
                 Your Phone Number
               </label>
-
               <input
                 {...register("phoneNumber", { required: true })}
                 type="number"
                 id="phone"
-                placeholder="Write your Phone number"
+                placeholder="Write your phone number"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
               {errors.phoneNumber && (
@@ -113,7 +111,7 @@ const Checkout = () => {
             </div>
             <div className="mb-4">
               <label
-                htmlFor="message"
+                htmlFor="address"
                 className="block text-sm font-medium text-gray-700"
               >
                 Delivery Address
@@ -125,8 +123,8 @@ const Checkout = () => {
                 placeholder="Write your address"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               ></textarea>
-              {errors.email && (
-                <p className="text-red-500">email is required</p>
+              {errors.address && (
+                <p className="text-red-500">Address is required</p>
               )}
             </div>
             <div className="flex justify-end">
